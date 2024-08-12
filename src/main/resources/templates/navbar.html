@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Navbar</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light" th:fragment="navbar">
+    <a class="navbar-brand" href="#">Sistema de Control de Reclamos</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <!-- Mostrar "Home" solo si el usuario está autenticado -->
+            <a class="nav-item nav-link" th:href="@{/home}" th:if="${#authorization.expression('isAuthenticated()')}" th:text="'Home'"></a>
+
+            <!-- Mostrar "Cerrar Sesión" solo si el usuario está autenticado -->
+            <a class="nav-item nav-link" th:href="@{/auth/logout}" th:if="${#authorization.expression('isAuthenticated()')}">Cerrar Sesión</a>
+
+            <!-- Mostrar "Iniciar Sesión" y "Registrarse" solo si el usuario no está autenticado -->
+            <a class="nav-item nav-link" th:href="@{/auth/login}" th:unless="${#authorization.expression('isAuthenticated()')}">Iniciar Sesión</a>
+            <a class="nav-item nav-link" th:href="@{/auth/registro}" th:unless="${#authorization.expression('isAuthenticated()')}">Registrarse</a>
+        </div>
+    </div>
+</nav>
+
+<script th:inline="javascript">
+    console.log("HOla");
+</script>
+</body>
+</html>
